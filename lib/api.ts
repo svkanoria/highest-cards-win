@@ -10,14 +10,16 @@ export interface Player {
   name: string;
   color: string;
   cards: PlayingCard[];
-  score: number;
 }
 
 export interface Game {
   deck: PlayingCard[];
   players: Player[];
   operations: string[];
-  currentStep: number;
+}
+
+export interface GameState {
+  scores: number[];
 }
 
 function makeCard(str: string): PlayingCard {
@@ -43,12 +45,10 @@ export function makeGame({
   deck,
   playerNames,
   operationSequence,
-  currentStep = 1,
 }: {
   deck: PlayingCard[];
   playerNames: string[];
   operationSequence: string;
-  currentStep?: number;
 }): Game {
   const operations = operationSequence.split(",").map(trim);
   if (operations.length * playerNames.length > deck.length) {
@@ -63,8 +63,38 @@ export function makeGame({
       name,
       color: HSLtoString(generateHSL(name)),
       cards: deck.splice(0, operations.length),
-      score: 0,
     });
   }
-  return { deck, players, operations, currentStep };
+  return { deck, players, operations };
+}
+
+export function getGameState(game: Game, step: number): GameState {
+  const state: GameState = { scores: [] };
+  for (const player of game.players) {
+    const ops = game.operations.slice(0, step);
+    var score = 0;
+    for (var i = 0; i < ops.length; i++) {
+      const cardValue = player.cards[i].value;
+      switch (ops[i]) {
+        case "+":
+          score += cardValue;
+          break;
+        case "-":
+          score -= cardValue;
+          break;
+        case "*":
+          score *= cardValue;
+          break;
+        case "/":
+          score = Math.ceil(score / cardValue);
+          break;
+        default:
+          throw new Error(
+            `Operation '${ops[i]}' not recognized. It should be +,-,* or /`
+          );
+      }
+    }
+    state.scores.push(Math.max(score, 0));
+  }
+  return state;
 }

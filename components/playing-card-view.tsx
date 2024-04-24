@@ -2,7 +2,7 @@ import { PlayingCard } from "@/lib/api";
 import { Card, CardBody } from "@nextui-org/card";
 import clsx from "clsx";
 
-export const PlayingCardView = ({
+const PlayingCardInner = ({
   card,
   color,
   isOpen,
@@ -13,7 +13,7 @@ export const PlayingCardView = ({
 }) => {
   if (isOpen) {
     return (
-      <Card className="w-24 h-36">
+      <Card className="w-20 h-32">
         <CardBody className="items-center justify-center">
           <div className="text-5xl">{card.value}</div>
           {card.name ?? <div className="text-2xl">{card.name}</div>}
@@ -22,7 +22,30 @@ export const PlayingCardView = ({
     );
   } else {
     return (
-      <Card className={"w-24 h-36"} style={{ backgroundColor: color }}></Card>
+      <Card className="w-20 h-32" style={{ backgroundColor: color }}></Card>
     );
   }
+};
+
+export const PlayingCardView = ({
+  card,
+  color,
+  operation,
+  isOpen,
+}: {
+  card: PlayingCard;
+  color: string;
+  operation: string;
+  isOpen: boolean;
+}) => {
+  return (
+    <div
+      className={clsx("flex justify-center items-center", {
+        "w-32 -rotate-90": operation === "-",
+        "w-28 rotate-[30deg]": operation === "/",
+      })}
+    >
+      <PlayingCardInner card={card} color={color} isOpen={isOpen} />
+    </div>
+  );
 };
