@@ -12,7 +12,7 @@ export default function Home() {
       "10": 1,
     }),
     playerNames: ["Little Baby P", "Aanu Panu Poo"],
-    operationSequence: "+,+,-,+,+,+,-,/",
+    operationSequence: "+,+,-,+,*,+,-,/",
   });
 
   return <GameView game={game} step={8} />;

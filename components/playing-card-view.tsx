@@ -5,11 +5,11 @@ import clsx from "clsx";
 const PlayingCardInner = ({
   card,
   color,
-  isOpen,
+  isOpen = false,
 }: {
   card: PlayingCard;
   color: string;
-  isOpen: boolean;
+  isOpen?: boolean;
 }) => {
   if (isOpen) {
     return (
@@ -39,13 +39,25 @@ export const PlayingCardView = ({
   isOpen: boolean;
 }) => {
   return (
-    <div
-      className={clsx("flex justify-center items-center", {
-        "w-32 -rotate-90": operation === "-",
-        "w-28 rotate-[30deg]": operation === "/",
-      })}
-    >
-      <PlayingCardInner card={card} color={color} isOpen={isOpen} />
+    <div className="grid">
+      {operation === "*" ? (
+        <div
+          className="flex justify-center items-center w-36 rotate-[45deg]"
+          style={{ gridArea: "1/1" }}
+        >
+          <PlayingCardInner card={card} color="#bbbbbb55" />
+        </div>
+      ) : null}
+      <div
+        className={clsx("flex justify-center items-center", {
+          "w-32 -rotate-90": operation === "-",
+          "w-28 rotate-[30deg]": operation === "/",
+          "w-36 -rotate-[45deg]": operation === "*",
+        })}
+        style={{ gridArea: "1/1" }}
+      >
+        <PlayingCardInner card={card} color={color} isOpen={isOpen} />
+      </div>
     </div>
   );
 };
