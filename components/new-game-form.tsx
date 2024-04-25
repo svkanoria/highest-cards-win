@@ -40,6 +40,7 @@ export const NewGameForm = ({
           name="player1"
           type="text"
           label="Player 1"
+          defaultValue="A"
           isRequired
           size="lg"
         />
@@ -47,6 +48,7 @@ export const NewGameForm = ({
           name="player2"
           type="text"
           label="Player 2"
+          defaultValue="B"
           isRequired
           size="lg"
         />

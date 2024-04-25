@@ -53,7 +53,7 @@ export function makeGame({
   const operations = operationSequence
     .split("")
     .map(trim)
-    .filter((i) => i === "");
+    .filter((o) => o !== "");
   if (operations.length * playerNames.length > deck.length) {
     throw new Error(
       `The game has ${playerNames.length} players, each needing ${operations.length} cards. ` +
