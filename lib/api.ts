@@ -50,7 +50,10 @@ export function makeGame({
   playerNames: string[];
   operationSequence: string;
 }): Game {
-  const operations = operationSequence.split(",").map(trim);
+  const operations = operationSequence
+    .split("")
+    .map(trim)
+    .filter((i) => i === "");
   if (operations.length * playerNames.length > deck.length) {
     throw new Error(
       `The game has ${playerNames.length} players, each needing ${operations.length} cards. ` +

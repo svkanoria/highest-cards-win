@@ -1,19 +1,16 @@
+"use client";
+
 import GameView from "@/components/game-view";
-import { makeDeck, makeGame } from "@/lib/api";
+import { NewGameForm } from "@/components/new-game-form";
+import { Game } from "@/lib/api";
+import { useState } from "react";
 
 export default function Home() {
-  const game = makeGame({
-    deck: makeDeck({
-      "1": 15,
-      "2": 12,
-      "3": 9,
-      "4": 6,
-      "5": 3,
-      "10": 1,
-    }),
-    playerNames: ["Little Baby P", "Aanu Panu Poo"],
-    operationSequence: "+,+,-,+,*,+,-,/",
-  });
+  const [game, setGame] = useState<Game | undefined>();
 
-  return <GameView game={game} step={8} />;
+  return game ? (
+    <GameView game={game} step={0} />
+  ) : (
+    <NewGameForm onCreate={setGame} />
+  );
 }
