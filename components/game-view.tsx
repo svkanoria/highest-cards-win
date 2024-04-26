@@ -1,7 +1,15 @@
 import { Game, getGameState } from "@/lib/api";
 import { PlayerView } from "./player-view";
 
-export const GameView = ({ game, step }: { game: Game; step: number }) => {
+export const GameView = ({
+  game,
+  step,
+  playerViewUpdationStagger = 0,
+}: {
+  game: Game;
+  step: number;
+  playerViewUpdationStagger?: number;
+}) => {
   const state = getGameState(game, step);
   return (
     <div className="flex items-center justify-center">
@@ -13,6 +21,7 @@ export const GameView = ({ game, step }: { game: Game; step: number }) => {
             operations={game.operations}
             numberOfCardsOpened={step}
             score={state.scores[index]}
+            viewUpdateDelay={index * playerViewUpdationStagger}
           />
         ))}
       </div>

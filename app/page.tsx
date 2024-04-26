@@ -16,21 +16,34 @@ const NewGameForm = dynamic(
 export default function Home() {
   const [game, setGame] = useState<Game | undefined>();
   const [step, setStep] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
   const isOver = game && step === game.operations.length;
+  const staggerInMs = 1000;
 
   return game ? (
     <div className="flex flex-col items-center gap-28">
-      <GameView game={game} step={step} />
+      <GameView
+        game={game}
+        step={step}
+        playerViewUpdationStagger={staggerInMs}
+      />
       <Button
         size="lg"
+        disabled={disabled}
+        isDisabled={disabled}
         onClick={() => {
+          setDisabled(true);
           if (isOver) {
             setGame(undefined);
             setStep(0);
           } else {
             setStep((s) => s + 1);
           }
+          setTimeout(
+            () => setDisabled(false),
+            game.players.length * staggerInMs
+          );
         }}
       >
         {isOver ? "Play New Game" : "Next"}
