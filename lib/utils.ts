@@ -19,6 +19,9 @@ const PART1 = [
   "Barmy",
   "Bertie",
   "Martinho",
+  "Horace",
+  "Angus",
+  "Basil",
 ];
 
 const PART2 = [
@@ -39,6 +42,15 @@ const PART2 = [
   "Wotherspoon",
   "Prebble",
   "Funcho",
+  "Bunter",
+  "Jamset Ram Singh",
+  "Cherry",
+  "Glossop",
+  "Pandemonium",
+  "McAllister",
+  "Fawlty",
+  "Cheesewright",
+  "Pinker",
 ];
 
 export const generateName = () =>
