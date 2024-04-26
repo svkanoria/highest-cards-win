@@ -1,17 +1,19 @@
 "use client";
 
 import { Game, makeDeck, makeGame } from "@/lib/api";
+import { generateName } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
-const DEFAULT_DECK = makeDeck({
-  "1": 15,
-  "2": 12,
-  "3": 9,
-  "4": 6,
-  "5": 3,
-  "10": 1,
-});
+const MAKE_DEFAULT_DECK = () =>
+  makeDeck({
+    "1": 15,
+    "2": 12,
+    "3": 9,
+    "4": 6,
+    "5": 3,
+    "10": 1,
+  });
 
 export const NewGameForm = ({
   onCreate,
@@ -26,7 +28,7 @@ export const NewGameForm = ({
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           const game = makeGame({
-            deck: DEFAULT_DECK,
+            deck: MAKE_DEFAULT_DECK(),
             playerNames: [
               formData.get("player1") as string,
               formData.get("player2") as string,
@@ -40,7 +42,7 @@ export const NewGameForm = ({
           name="player1"
           type="text"
           label="Player 1"
-          defaultValue="A"
+          defaultValue={generateName()}
           isRequired
           size="lg"
         />
@@ -48,7 +50,7 @@ export const NewGameForm = ({
           name="player2"
           type="text"
           label="Player 2"
-          defaultValue="B"
+          defaultValue={generateName()}
           isRequired
           size="lg"
         />

@@ -1,7 +1,7 @@
 import { Game, getGameState } from "@/lib/api";
 import { PlayerView } from "./player-view";
 
-export default function GameView({ game, step }: { game: Game; step: number }) {
+export const GameView = ({ game, step }: { game: Game; step: number }) => {
   const state = getGameState(game, step);
   return (
     <div className="flex items-center justify-center">
@@ -18,4 +18,4 @@ export default function GameView({ game, step }: { game: Game; step: number }) {
       </div>
     </div>
   );
-}
+};
