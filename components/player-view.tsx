@@ -1,6 +1,8 @@
 import { Player } from "@/lib/api";
 import { PlayingCardList } from "./playing-card-list";
 import { useEffect, useState } from "react";
+import { adventurer } from "@dicebear/collection";
+import { createAvatar } from "@dicebear/core";
 
 export const PlayerView = ({
   player,
@@ -37,12 +39,12 @@ export const PlayerView = ({
   if (!state) return null;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <div className="flex items-center gap-4">
         <img
           height={100}
           width={100}
-          src={`https://api.dicebear.com/8.x/adventurer/png/seed=${player.name}`}
+          src={createAvatar(adventurer, { seed: player.name }).toDataUriSync()}
         />
         <span className="text-xl" style={{ color: player.color }}>
           {player.name}
