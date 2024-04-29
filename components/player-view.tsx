@@ -35,7 +35,7 @@ export const PlayerView = ({
         setState({ numberOfCardsOpened, score });
       }, viewUpdateDelay);
     }
-  }, [numberOfCardsOpened, score, viewUpdateDelay]);
+  }, [numberOfCardsOpened, score, viewUpdateDelay, state]);
 
   if (!state) return null;
 
