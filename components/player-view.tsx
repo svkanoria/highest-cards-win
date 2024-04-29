@@ -3,6 +3,7 @@ import { PlayingCardList } from "./playing-card-list";
 import { useEffect, useState } from "react";
 import { adventurer } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
+import { motion } from "framer-motion";
 
 export const PlayerView = ({
   player,
@@ -49,9 +50,16 @@ export const PlayerView = ({
         <span className="text-xl" style={{ color: player.color }}>
           {player.name}
         </span>
-        <div className="ml-auto text-5xl" style={{ color: player.color }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1.0 }}
+          transition={{ type: "spring", bounce: 0.75 }}
+          key={state.numberOfCardsOpened}
+          className="ml-auto text-7xl"
+          style={{ color: player.color }}
+        >
           {state.score}
-        </div>
+        </motion.div>
       </div>
       <PlayingCardList
         cards={player.cards}
