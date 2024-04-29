@@ -4,6 +4,8 @@ import { Game, makeDeck, makeGame } from "@/lib/api";
 import { generateName } from "@/lib/utils";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 const MAKE_DEFAULT_DECK = () =>
   makeDeck({
@@ -21,7 +23,20 @@ export const NewGameForm = ({
   onCreate: (game: Game) => void;
 }) => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center gap-12">
+      <motion.div
+        initial={{ opacity: 0, x: -200, scale: 0.7 }}
+        animate={{ opacity: 1, x: 0, rotate: 360, scale: 1.0 }}
+        transition={{ type: "spring" }}
+      >
+        <Image
+          src="/logo.png"
+          alt="Highest Cards Win logo"
+          width={400}
+          height={400}
+          className="rounded-lg"
+        />
+      </motion.div>
       <form
         className="flex flex-col gap-8 w-full max-w-md"
         onSubmit={(e) => {
